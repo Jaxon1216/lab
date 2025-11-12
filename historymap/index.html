@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=10;IE=11">
     <meta http-equiv="Cache-Control" content="no-transform">
+    <script>
+      // 动态设置 base href，生产环境使用 /historymap/，本地开发使用 /
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        document.write('<base href="/historymap/">');
+      }
+    </script>
     <title>唐宋文学编年地图</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/dist-jquery.min.js"></script>
