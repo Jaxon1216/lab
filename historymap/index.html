@@ -90,22 +90,6 @@
       </div>
       <div class="container-fluid mt-3">
         <div class="row g-3">
-          <!--
-          <div class="col-lg-1">
-            <nav class="navbar navbar-light rounded" aria-label="Menu">
-              <div>
-                <button class="navbar-toggler position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="position-absolute top-0 start-10 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
-                <span class="navbar-toggler-icon"></span>
-                </button>
-              </div>
-            </nav>
-            <nav class="navbar navbar-light navbar-expand-lg rounded" aria-label="Menu">
-              <div class="collapse navbar-collapse">
-                <img src="images/images-TangSong_V.png" class="w-75">
-              </div>
-            </nav>
-          </div>-->
           <div class="col-lg-8">
             <script src="js/js-poetlife.js"></script>
             <style>
@@ -141,13 +125,6 @@
                   if (tileName == "satellite") {
                       lastLayer = new AMap.TileLayer.Satellite();
                   }
-                  // else if (tileName) {
-                  //     lastLayer = new AMap.TileLayer({
-                  //         getTileUrl: 'https://t.cnkgraph.com/' + tileName + '/[z]/[x]/[y].png',
-                  //         zooms: [5, 11],
-                  //         zIndex: 4
-                  //     });
-                  // }
               
                   if (lastLayer) {
                       map.addLayer(lastLayer);
@@ -173,7 +150,7 @@
                   lightMarkLayer.setStyle({
                     unit: 'px',
                     size: [80, 80],
-                    texture: './Map/breath_red.png',
+                    texture: './map/breath_red.png',
                     animate: true,
                     duration: 1000,
                   });
@@ -218,36 +195,6 @@
               }
             </script>
             <div style="position: relative;">
-              <!--<div class="bg-white" style="position: absolute; z-index: 10; inset: auto 10px 10px auto;">
-                <div class="input-group">
-                  <span class="input-group-text">背景地图</span>
-                  <select class="form-select border-primary text-primary" aria-label="背景地图" onchange="SwitchTile()" id="bgMap">
-                    <option selected value="">当代简易地形图</option>
-                    <option value="satellite">卫星地图</option>
-                    <option value="Xia">夏</option>
-                    <option value="Shang">商</option>
-                    <option value="XiZhou">西周</option>
-                    <option value="ChunQiu">春秋</option>
-                    <option value="XiHan">西汉</option>
-                    <option value="DongHan">东汉</option>
-                    <option value="SanGuo">三国</option>
-                    <option value="XiJin">西晋</option>
-                    <option value="DongJin">东晋</option>
-                    <option value="NanBei">南北朝</option>
-                    <option value="Sui">隋</option>
-                    <option value="tang">唐开元廿九年</option>
-                    <option value="houliang">后梁开平二年</option>
-                    <option value="houtang">后唐清泰元年</option>
-                    <option value="houjin">后晋天福八年</option>
-                    <option value="houhan">后汉乾祐二年</option>
-                    <option value="HouZhou">后周</option>
-                    <option value="beisong">北宋</option>
-                    <option value="nansong">南宋</option>
-                  </select>
-                  <span class="input-group-text">当代地名</span>
-                  <button class="btn btn-outline-primary" onclick="ShowModernLayers()">显示</button>
-                </div>
-              </div>-->
               <div id="poetLifeMapRegion" class="w-100 mapColumn"></div>
             </div>
           </div>
@@ -268,9 +215,7 @@
     </main>
     <footer class="border-top footer text-muted py-2 mt-auto" style="background-color: whitesmoke;">
       <div class="container-fluid">
-        <a href="https://beian.miit.gov.cn/" target="_blank" class="text-muted me-2">苏ICP备2022002981号</a> © 2025 - 苏州图谱信息技术有限公司版权所有 - 
-        <a class="link-dark" href="About.html">关于本站</a>
-        <a href="mailto:cozychen@hotmail.com" class="ms-3 link-dark">联系我们</a>
+        © 2025 - 唐宋文学编年地图
       </div>
     </footer>
   </body>
