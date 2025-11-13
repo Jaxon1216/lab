@@ -1,0 +1,26 @@
+{
+  "greeting": "亲爱的",
+  "name": "爸爸",
+  "greetingText": "感谢您十九载春秋的悉心养育，是您的肩膀撑起了我的天空",
+  "wishText": "愿您福寿绵长，身体康健，岁月温柔以待。愿您放下重担，颐养天年，尽享天伦之乐。",
+  "imagePath": "img/jdj.jpeg",
+  "text1": "今天是您的六十大寿！",
+  "textInChatBox": "六十载风雨兼程，您用坚实的臂膀为我遮风挡雨。今天，让我用这份心意，祝您生日快乐！",
+  "sendButtonLabel": "送给您",
+  "text5Content": "您是我生命中最重要的人",
+  "smiley": ":)",
+  "bigTextPart1": "爸",
+  "bigTextPart2": "爸",
+  "wishHeading": "六十大寿，生日快乐！",
+  "outroText": "爸爸，请您记得：少抽烟，多保重身体，别做重活。您的健康，是我最大的心愿。愿您福如东海，寿比南山！",
+s  
+  "outroSmiley": ":)",
+  "music": "./music/hbd.mp3",
+  "fonts": [
+    {
+      "name": "Ma Shan Zheng",
+      "path": "https://fonts.googleapis.com/css?family=Ma+Shan+Zheng&display=swap"
+    }
+  ]
+}
+
