@@ -20,13 +20,337 @@
     <script src="js/js-lib.js"></script>
     <link rel="stylesheet" href="css/css-common.css">
     <link rel="stylesheet" type="text/css" href="css/sheetjs-spreadsheet.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #ffffff;
+        color: #333;
+      }
+      
       a {
       text-decoration: none;
       }
+      
+      /* 顶部搜索栏 */
+      .top-search-bar {
+        max-width: 1200px;
+        margin: 2rem auto 1rem;
+        padding: 0 1rem;
+      }
+      
+      .search-input-wrapper {
+        position: relative;
+        width: 100%;
+      }
+      
+      .search-input {
+        width: 100%;
+        padding: 1rem 3rem 1rem 1.5rem;
+        border: 2px solid #e8e8e8;
+        border-radius: 50px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #fafafa;
+      }
+      
+      .search-input:focus {
+        outline: none;
+        border-color: #a855f7;
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.15);
+      }
+      
+      .search-icon {
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+      }
+      
+      /* 选项卡容器 */
+      .tabs-container {
+        max-width: 1200px;
+        margin: 0 auto 2rem;
+        padding: 0 1rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .tabs-container::-webkit-scrollbar {
+        height: 0;
+      }
+      
+      .tabs-wrapper {
+        display: flex;
+        gap: 2rem;
+        border-bottom: 1px solid #e8e8e8;
+        min-width: max-content;
+      }
+      
+      @media (min-width: 768px) {
+        .tabs-wrapper {
+          min-width: auto;
+        }
+      }
+      
+      .tab-item {
+        position: relative;
+        padding: 1rem 0.5rem;
+        color: #999;
+        font-weight: 500;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        white-space: nowrap;
+        border-bottom: 3px solid transparent;
+      }
+      
+      .tab-item:hover {
+        color: #666;
+      }
+      
+      .tab-item.active {
+        color: #333;
+        border-bottom-color: #000;
+      }
+      
+      .tab-badge {
+        position: absolute;
+        top: 0.5rem;
+        right: -1rem;
+        background: linear-gradient(135deg, #ff6b6b, #ff8c42);
+        color: white;
+        font-size: 0.65rem;
+        padding: 0.15rem 0.4rem;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+      }
+      
+      /* 内容卡片区域 */
+      .content-area {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem 2rem;
+      }
+      
+      .tab-content {
+        display: none;
+      }
+      
+      .tab-content.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .card-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      @media (min-width: 768px) {
+        .card-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      
+      @media (min-width: 1024px) {
+        .card-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      
+      .content-card {
+        background: white;
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+      }
+      
+      .content-card:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        transform: translateY(-4px);
+      }
+      
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+      
+      .card-description {
+        color: #666;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+      
+      /* 背景装饰 */
+      .bg-decoration {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 300px;
+        background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(173, 216, 230, 0.15));
+        z-index: -1;
+        pointer-events: none;
+      }
+      
+      /* 功能按钮 */
+      .action-button {
+        background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+      }
+      
+      .action-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(168, 85, 247, 0.4);
+      }
+      
+      /* 地图容器样式 */
+      .map-container {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+      }
+      
+      .map-full-width {
+        width: 100%;
+        height: 600px;
+      }
+      
+      #poetLifeMapRegion {
+        height: 600px;
+        border-radius: 20px;
+      }
+      
+      #poetLifeDetail {
+        background: white;
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        height: fit-content;
+        min-height: 200px;
+      }
+      
+      /* 优化地图和详情的布局 */
+      .map-detail-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      @media (min-width: 1024px) {
+        .map-detail-container {
+          grid-template-columns: 2fr 1fr;
+        }
+      }
+      
+      #poetLifeSummary {
+        display: none;
+      }
+      
+      /* 隐藏原导航栏 */
+      .navbar {
+        display: none;
+      }
+      
+      /* 侧边栏优化 */
+      .offcanvas-body {
+        background: white;
+      }
     </style>
   </head>
-  <body class="bg-default d-flex flex-column h-100">
+  <body>
+    <!-- 背景装饰 -->
+    <div class="bg-decoration"></div>
+    
+    <!-- 顶部搜索栏 -->
+    <div class="top-search-bar">
+      <div class="search-input-wrapper">
+        <input type="search" class="search-input" id="mainSearch" placeholder="搜索地点、人物、年份...">
+        <span class="search-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18 18l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+    
+    <!-- 选项卡 -->
+    <div class="tabs-container">
+      <div class="tabs-wrapper">
+        <div class="tab-item active" data-tab="sushi">
+          苏轼被贬之路
+        </div>
+        <div class="tab-item" data-tab="xuxiake">
+          徐霞客的苦难与辉煌之路
+          <span class="tab-badge">New</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 内容区域 -->
+    <div class="content-area">
+      <!-- 苏轼选项卡内容 -->
+      <div class="tab-content active" id="sushi-content">
+        <div class="map-detail-container">
+          <div class="map-container">
+            <div id="poetLifeMapRegion" class="map-full-width"></div>
+          </div>
+          <div id="poetLifeDetail"></div>
+        </div>
+      </div>
+      
+      <!-- 徐霞客选项卡内容 -->
+      <div class="tab-content" id="xuxiake-content">
+        <div class="card-grid">
+          <div class="content-card">
+            <h3 class="card-title">徐霞客游记</h3>
+            <p class="card-description">探索明代地理学家徐霞客的传奇游历路线，追寻他的足迹遍布祖国山河...</p>
+          </div>
+          <div class="content-card">
+            <h3 class="card-title">即将推出</h3>
+            <p class="card-description">更多精彩内容正在筹备中，敬请期待...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 隐藏的原导航栏（保留功能） -->
     <nav class="navbar navbar-expand-lg navbar-light border-bottom" aria-label="主菜单" style="background-color: whitesmoke;">
       <div class="container-fluid">
         <a href="javascript: void(0)" class="me-lg-4 navbar-brand">
@@ -39,12 +363,12 @@
         <div class="collapse navbar-collapse mb-2 mb-lg-0" id="commonMenu">
           <div class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <a class="nav-link px-2 link-dark" href="javascript: NewView('scope=&author=苏轼&beginYear=0&endYear=0');">苏轼南贬之路</a>
-            
           </div>
         </div>
       </div>
     </nav>
-    <main role="main" class="pb-3 flex-shrink-0" id="main">
+    
+    <main role="main" class="pb-3 flex-shrink-0" id="main" style="display: none;">
       <style type="text/css">
         img.icon {
         height: 60px;
@@ -224,5 +548,39 @@
         © 2025 - 唐宋文学编年地图
       </div>
     </footer>
+    
+    <!-- 选项卡切换脚本 -->
+    <script>
+      $(document).ready(function() {
+        // 选项卡切换功能
+        $('.tab-item').on('click', function() {
+          const tabName = $(this).data('tab');
+          
+          // 更新选项卡激活状态
+          $('.tab-item').removeClass('active');
+          $(this).addClass('active');
+          
+          // 更新内容区域显示
+          $('.tab-content').removeClass('active');
+          $(`#${tabName}-content`).addClass('active');
+        });
+        
+        // 搜索功能
+        $('#mainSearch').on('keypress', function(e) {
+          if (e.which === 13) { // Enter键
+            const query = $(this).val().trim();
+            if (query) {
+              Filter();
+              // 可以在这里添加更多搜索逻辑
+            }
+          }
+        });
+        
+        // 自动加载苏轼地图
+        setTimeout(function() {
+          NewView('scope=&author=苏轼&beginYear=0&endYear=0');
+        }, 500);
+      });
+    </script>
   </body>
 </html>
