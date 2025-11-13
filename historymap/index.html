@@ -40,114 +40,136 @@
       text-decoration: none;
       }
       
-      /* 顶部搜索栏 */
-      .top-search-bar {
+      /* 页面标题 */
+      .page-header {
         max-width: 1200px;
-        margin: 2rem auto 1rem;
+        margin: 3rem auto 1rem;
         padding: 0 1rem;
+        text-align: center;
       }
       
-      .search-input-wrapper {
-        position: relative;
-        width: 100%;
+      .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 0.5rem;
       }
       
-      .search-input {
-        width: 100%;
-        padding: 1rem 3rem 1rem 1.5rem;
-        border: 2px solid #e8e8e8;
-        border-radius: 50px;
+      .page-subtitle {
         font-size: 1rem;
-        transition: all 0.3s ease;
-        background: #fafafa;
-      }
-      
-      .search-input:focus {
-        outline: none;
-        border-color: #a855f7;
-        background: #ffffff;
-        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.15);
-      }
-      
-      .search-icon {
-        position: absolute;
-        right: 1.5rem;
-        top: 50%;
-        transform: translateY(-50%);
         color: #999;
+        font-weight: 400;
       }
       
-      /* 选项卡容器 */
-      .tabs-container {
+      /* 首页卡片网格 */
+      .home-cards-grid {
         max-width: 1200px;
-        margin: 0 auto 2rem;
+        margin: 3rem auto;
         padding: 0 1rem;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      
-      .tabs-container::-webkit-scrollbar {
-        height: 0;
-      }
-      
-      .tabs-wrapper {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr;
         gap: 2rem;
-        border-bottom: 1px solid #e8e8e8;
-        min-width: max-content;
       }
       
       @media (min-width: 768px) {
-        .tabs-wrapper {
-          min-width: auto;
+        .home-cards-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
       }
       
-      .tab-item {
-        position: relative;
-        padding: 1rem 0.5rem;
-        color: #999;
-        font-weight: 500;
+      /* 首页选项卡卡片 */
+      .home-card {
+        background: white;
+        border-radius: 24px;
+        padding: 3rem 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid transparent;
         cursor: pointer;
-        transition: color 0.3s ease;
-        white-space: nowrap;
-        border-bottom: 3px solid transparent;
+        position: relative;
+        overflow: hidden;
       }
       
-      .tab-item:hover {
-        color: #666;
-      }
-      
-      .tab-item.active {
-        color: #333;
-        border-bottom-color: #000;
-      }
-      
-      .tab-badge {
+      .home-card::before {
+        content: '';
         position: absolute;
-        top: 0.5rem;
-        right: -1rem;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, #a855f7, #8b5cf6);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+      }
+      
+      .home-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(168, 85, 247, 0.2);
+        border-color: rgba(168, 85, 247, 0.3);
+      }
+      
+      .home-card:hover::before {
+        transform: scaleX(1);
+      }
+      
+      .home-card-badge {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
         background: linear-gradient(135deg, #ff6b6b, #ff8c42);
         color: white;
-        font-size: 0.65rem;
-        padding: 0.15rem 0.4rem;
-        border-radius: 8px;
+        font-size: 0.75rem;
+        padding: 0.35rem 0.75rem;
+        border-radius: 12px;
         font-weight: 600;
-        box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+        box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
       }
       
-      /* 内容卡片区域 */
-      .content-area {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 1rem 2rem;
+      .home-card-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.15));
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
       }
       
-      .tab-content {
+      .home-card-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 1rem;
+      }
+      
+      .home-card-description {
+        color: #666;
+        line-height: 1.8;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .home-card-meta {
+        display: flex;
+        gap: 1.5rem;
+        color: #999;
+        font-size: 0.9rem;
+      }
+      
+      .home-card-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      /* 首页和详情页切换 */
+      .home-view, .detail-view {
         display: none;
       }
       
-      .tab-content.active {
+      .home-view.active, .detail-view.active {
         display: block;
         animation: fadeIn 0.4s ease;
       }
@@ -163,6 +185,52 @@
         }
       }
       
+      /* 详情页内容区域 */
+      .detail-content {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+      
+      /* 返回按钮 */
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: white;
+        border: 2px solid #e8e8e8;
+        border-radius: 50px;
+        color: #666;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+      }
+      
+      .back-button:hover {
+        border-color: #a855f7;
+        color: #a855f7;
+        transform: translateX(-4px);
+      }
+      
+      .detail-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      
+      .detail-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+      
+      .detail-description {
+        font-size: 1.1rem;
+        color: #666;
+      }
+      
       .card-grid {
         display: grid;
         grid-template-columns: 1fr;
@@ -175,24 +243,12 @@
         }
       }
       
-      @media (min-width: 1024px) {
-        .card-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-      
       .content-card {
         background: white;
         border-radius: 20px;
-        padding: 1.5rem;
+        padding: 2rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        transition: all 0.3s ease;
         border: 1px solid #f0f0f0;
-      }
-      
-      .content-card:hover {
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        transform: translateY(-4px);
       }
       
       .card-title {
@@ -298,35 +354,72 @@
     <!-- 背景装饰 -->
     <div class="bg-decoration"></div>
     
-    <!-- 顶部搜索栏 -->
-    <div class="top-search-bar">
-      <div class="search-input-wrapper">
-        <input type="search" class="search-input" id="mainSearch" placeholder="搜索地点、人物、年份...">
-        <span class="search-icon">
+    <!-- 首页视图 -->
+    <div class="home-view active">
+      <!-- 页面标题 -->
+      <div class="page-header">
+        <h1 class="page-title">唐宋文学编年地图</h1>
+        <p class="page-subtitle">探索中国文化名人的足迹与人生历程</p>
+      </div>
+      
+      <!-- 首页卡片 -->
+      <div class="home-cards-grid">
+        <!-- 苏轼卡片 -->
+        <div class="home-card" data-route="sushi">
+          <div class="home-card-icon">📜</div>
+          <h2 class="home-card-title">苏轼被贬之路</h2>
+          <p class="home-card-description">
+            追溯北宋文豪苏轼从黄州到海南的艰难历程，感受他在逆境中铸就的不朽诗篇与豁达人生。从"竹杖芒鞋轻胜马"到"日啖荔枝三百颗"，探索这位千古文人的心路历程。
+          </p>
+          <div class="home-card-meta">
+            <div class="home-card-meta-item">
+              <span>📍</span>
+              <span>10个关键地点</span>
+            </div>
+            <div class="home-card-meta-item">
+              <span>📅</span>
+              <span>1080-1101年</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 徐霞客卡片 -->
+        <div class="home-card" data-route="xuxiake">
+          <span class="home-card-badge">New</span>
+          <div class="home-card-icon">🗺️</div>
+          <h2 class="home-card-title">徐霞客的苦难与辉煌之路</h2>
+          <p class="home-card-description">
+            跟随明代地理学家徐霞客的脚步，领略祖国壮丽山河。从江南水乡到云贵高原，他用30年时间书写了一部伟大的地理学巨著，展现了中国古代科学探索精神。
+          </p>
+          <div class="home-card-meta">
+            <div class="home-card-meta-item">
+              <span>📍</span>
+              <span>即将推出</span>
+            </div>
+            <div class="home-card-meta-item">
+              <span>📅</span>
+              <span>1607-1640年</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 苏轼详情页视图 -->
+    <div class="detail-view" id="sushi-detail">
+      <div class="detail-content">
+        <button class="back-button" onclick="showHome()">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18 18l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 10H5M5 10L10 5M5 10L10 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-        </span>
-      </div>
-    </div>
-    
-    <!-- 选项卡 -->
-    <div class="tabs-container">
-      <div class="tabs-wrapper">
-        <div class="tab-item active" data-tab="sushi">
-          苏轼被贬之路
+          返回首页
+        </button>
+        
+        <div class="detail-header">
+          <h1 class="detail-title">苏轼被贬之路</h1>
+          <p class="detail-description">从黄州到海南，追溯北宋文豪的艰难历程</p>
         </div>
-        <div class="tab-item" data-tab="xuxiake">
-          徐霞客的苦难与辉煌之路
-          <span class="tab-badge">New</span>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 内容区域 -->
-    <div class="content-area">
-      <!-- 苏轼选项卡内容 -->
-      <div class="tab-content active" id="sushi-content">
+        
         <div class="map-detail-container">
           <div class="map-container">
             <div id="poetLifeMapRegion" class="map-full-width"></div>
@@ -334,17 +427,27 @@
           <div id="poetLifeDetail"></div>
         </div>
       </div>
-      
-      <!-- 徐霞客选项卡内容 -->
-      <div class="tab-content" id="xuxiake-content">
+    </div>
+    
+    <!-- 徐霞客详情页视图 -->
+    <div class="detail-view" id="xuxiake-detail">
+      <div class="detail-content">
+        <button class="back-button" onclick="showHome()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 10H5M5 10L10 5M5 10L10 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          返回首页
+        </button>
+        
+        <div class="detail-header">
+          <h1 class="detail-title">徐霞客的苦难与辉煌之路</h1>
+          <p class="detail-description">探索明代地理学家的传奇游历</p>
+        </div>
+        
         <div class="card-grid">
           <div class="content-card">
-            <h3 class="card-title">徐霞客游记</h3>
-            <p class="card-description">探索明代地理学家徐霞客的传奇游历路线，追寻他的足迹遍布祖国山河...</p>
-          </div>
-          <div class="content-card">
             <h3 class="card-title">即将推出</h3>
-            <p class="card-description">更多精彩内容正在筹备中，敬请期待...</p>
+            <p class="card-description">徐霞客的详细游记地图正在筹备中，敬请期待...</p>
           </div>
         </div>
       </div>
@@ -549,37 +652,52 @@
       </div>
     </footer>
     
-    <!-- 选项卡切换脚本 -->
+    <!-- 页面切换脚本 -->
     <script>
-      $(document).ready(function() {
-        // 选项卡切换功能
-        $('.tab-item').on('click', function() {
-          const tabName = $(this).data('tab');
-          
-          // 更新选项卡激活状态
-          $('.tab-item').removeClass('active');
-          $(this).addClass('active');
-          
-          // 更新内容区域显示
-          $('.tab-content').removeClass('active');
-          $(`#${tabName}-content`).addClass('active');
-        });
+      // 显示首页
+      function showHome() {
+        $('.home-view').addClass('active');
+        $('.detail-view').removeClass('active');
         
-        // 搜索功能
-        $('#mainSearch').on('keypress', function(e) {
-          if (e.which === 13) { // Enter键
-            const query = $(this).val().trim();
-            if (query) {
-              Filter();
-              // 可以在这里添加更多搜索逻辑
+        // 滚动到顶部
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      
+      // 显示详情页
+      function showDetail(route) {
+        $('.home-view').removeClass('active');
+        $('.detail-view').removeClass('active');
+        $(`#${route}-detail`).addClass('active');
+        
+        // 滚动到顶部
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // 如果是苏轼页面，加载地图
+        if (route === 'sushi') {
+          setTimeout(function() {
+            if (typeof CreatePoetLifeMap === 'function') {
+              CreatePoetLifeMap();
             }
-          }
+            setTimeout(function() {
+              if (typeof NewView === 'function') {
+                NewView('scope=&author=苏轼&beginYear=0&endYear=0');
+              }
+            }, 500);
+          }, 300);
+        }
+      }
+      
+      $(document).ready(function() {
+        // 首页卡片点击事件
+        $('.home-card').on('click', function() {
+          const route = $(this).data('route');
+          showDetail(route);
         });
         
-        // 自动加载苏轼地图
-        setTimeout(function() {
-          NewView('scope=&author=苏轼&beginYear=0&endYear=0');
-        }, 500);
+        // 添加卡片悬停效果增强
+        $('.home-card').on('mouseenter', function() {
+          $(this).css('cursor', 'pointer');
+        });
       });
     </script>
   </body>
